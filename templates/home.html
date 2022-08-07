@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <style>
+        body{ background-image: url("/static/back.jpg");
+
+        }
+       
+h1 {
+  text-align: center;
+}
+table, td, th {
+            border: 1px solid black;
+            width: 300px;
+         }
+
+         table,
+      table th,
+      td {
+        border: 3px solid #1f1b29;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        height: 80px;
+        width: 400px;
+        padding: 5px 96px;
+        vertical-align: middle;
+      }
+      th {
+        text-align: right;
+      }
+      td {
+        text-align: center;
+      }
+    </style>  
+    
+</head>
+
+<body>
+    <h1>USER MANAGEMENT SYSTEM</h1>
+    <h2>{% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </h2>
+    <h3><a href="{{url_for('adduser')}}"><input type="submit" 
+         value="ADD USER"></a></h3>
+    <table border="4">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>CITY</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+        </tr>
+        {% for data in datas %}
+            <tr>
+                <td>{{data.ID}}</td>
+                <td>{{data.NAME}}</td>
+                <td>{{data.AGE}}</td>
+                <td>{{data.CITY}}</td>
+                <td><a href="{{url_for('edituser', id = data.ID)}}">
+                    <input type="button" value="EDIT USER" id="">
+                </a></td>
+                <td><a onclick="return confirm('Are you sure to delete?');" href="{{url_for('deleteuser', id = data.ID, name = data.NAME)}}">
+                    <input type="button" value="DELETE USER" id="">
+                </a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
